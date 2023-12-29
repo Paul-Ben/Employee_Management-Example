@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\State;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +21,20 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        Country::factory(50)->create();
+
+        Country::all()->each(function ($country){
+            
+            State::factory(10)->create(['country_id' => $country->id]);
+        });
+
+        State::all()->each(function ($state){
+            
+            City::factory(10)->create(['state_id' => $state->id]);
+        });
+
+    
+
     }
 }
