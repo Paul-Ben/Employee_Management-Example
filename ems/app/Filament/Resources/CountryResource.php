@@ -32,9 +32,12 @@ class CountryResource extends Resource
     {
         return $form
             ->schema([
-                // Forms\Components\TextInput::make('name')
-                //     ->required()
-                //     ->maxLength(255),
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('code')
+                    ->required()
+                    ->maxLength(3),
             ]);
     }
 
@@ -42,6 +45,8 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('code')
+                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
