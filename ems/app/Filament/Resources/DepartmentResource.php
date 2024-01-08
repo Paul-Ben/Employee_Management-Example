@@ -6,11 +6,15 @@ use App\Filament\Resources\DepartmentResource\Pages;
 use App\Filament\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DepartmentResource extends Resource
@@ -67,6 +71,21 @@ class DepartmentResource extends Resource
             ]);
     }
 
+    // public static function infolist(Infolist $infolist): Infolist
+    // {
+    //     return $infolist
+    //             ->schema([
+    //                 Section::make('Department Info')
+    //                     ->schema([
+    //                         TextInput::make('name'),
+    //                         TextInput::make('employees_count')
+    //                             ->state(function (Model $record): int {
+    //                                 return $record->employees()->count();
+    //                             })
+    //                     ])->columns(2)
+    //             ]);
+    // }
+
     public static function getRelations(): array
     {
         return [
@@ -82,5 +101,10 @@ class DepartmentResource extends Resource
             'view' => Pages\ViewDepartment::route('/{record}'),
             'edit' => Pages\EditDepartment::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }
